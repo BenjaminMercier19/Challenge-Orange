@@ -46,6 +46,7 @@ app.get('/write', (req, res) => {
  * Create user
  */
 app.post("/user", function(req, res) {
+  console.log("creating user");
   usersDatasync.child(req.body.id).set(req.body);
   res.status(200).send({"success":true});
 });

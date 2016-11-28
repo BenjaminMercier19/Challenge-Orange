@@ -43,10 +43,9 @@
      * Set up Datasync info to watch child added event
      *
      */
-     self.fds.on('child_added', function(snap){
-       alert("child_added");
+     /*self.fds.on('child_added', function(snap){
        console.info(snap.val());
-     });
+     });*/
 
   }
 
