@@ -2,7 +2,7 @@
 
   angular
        .module('main')
-       .controller('MainController', ['$mdSidenav',
+       .controller('MainController',  ['$mdSidenav',
           MainController
        ]);
 
@@ -13,11 +13,25 @@
   function MainController($mdSidenav) {
     var self = this;
     // Datasync
-    self.fds = new Webcom('https://io.datasync.orange.com/base/hackathon');
-
-    function toggleUsersList() {
+    self.fds = new Webcom('https://io.datasync.orange.com/base/hackathon/users');
+    self.menus = [
+      {
+        "name": "Manage users",
+        "action": "",
+      },
+      {
+        "name": "Manage areas",
+        "action": "",
+      },
+      {
+        "name": "Live map",
+        "action": "",
+      },
+    ];
+    self.toggleMenu = function() {
       $mdSidenav('left').toggle();
-    }
+    };
+
     /**
      * Set up Datasync info to watch child added event
      *

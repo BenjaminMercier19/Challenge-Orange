@@ -19,11 +19,18 @@
 const express = require('express');
 const Webcom = require('webcom');
 const app = express();
+var bodyParser = require('body-parser');
 
-var myRef = new Webcom('https://io.datasync.orange.com/base/hackathon');
+var hackathon = new Webcom('https://io.datasync.orange.com/base/hackathon');
+var usersDatasync = new Webcom('https://io.datasync.orange.com/base/hackathon/users');
+
 
 app.use('/scripts', express.static('node_modules'));
 app.use(express.static('app'));
+// parse application/json
+app.use(bodyParser.json())
+
+
 
 app.get('/', (req, res) => {
     /*res.status(200).send('Hello, world!');*/
@@ -34,6 +41,28 @@ app.get('/write', (req, res) => {
     myRef.set({foo: 'bar'});
     res.status(200).send('Hello, world!');
 });
+
+/**
+ * Create user
+ */
+app.post("/user", function(req, res) {
+  usersDatasync.child(req.body.id).set(req.body);
+  res.status(200).send({"success":true});
+});
+
+/**
+ * Update user location
+ */
+app.post("/user/:id", function(req,res) {
+  var user = usersDatasync.child(req.params.id);
+  user.update({
+    "lat": req.body.lat,
+    "lng": req.body.lng
+  });
+  res.status(200).send({"success":true});
+
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 8080;
