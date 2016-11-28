@@ -23,45 +23,52 @@
 
   </head>
 
-  <body ng-app="starterApp" layout="column" ng-controller="UserController as ul" ng-cloak>
-
+  <body ng-app="starterApp" layout="column" ng-controller="MainController as main" ng-cloak>
     <md-toolbar layout="row">
-      <md-button class="menu" hide-gt-sm ng-click="ul.toggleList()" aria-label="Show User List">
+      <md-button class="menu" hide-gt-sm ng-click="main.toggleList()" aria-label="Show Menu List">
         <md-icon md-svg-icon="menu" ></md-icon>
       </md-button>
-      <h1>Angular Material - Starter App</h1>
+      <h1>The Factory Assistant App</h1>
     </md-toolbar>
+    <div layout="column" ng-controller="UserController as ul">
 
-    <div flex layout="row">
+      <div flex layout="row">
 
-        <md-sidenav  ng-click="ul.toggleList()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2" >
-          <md-list>
-            <md-list-item ng-repeat="it in ul.users">
-                <md-button ng-click="ul.selectUser(it)" ng-class="{'selected' : it === ul.selected }">
-                  <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
-                  {{it.name}}
-                </md-button>
-            </md-list-item>
-          </md-list>
-        </md-sidenav>
+          <md-sidenav  ng-click="ul.toggleList()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2" >
+            <md-list>
+              <md-list-item ng-repeat="it in ul.users">
+                  <md-button ng-click="ul.selectUser(it)" ng-class="{'selected' : it === ul.selected }">
+                    <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
+                    {{it.name}}
+                  </md-button>
+              </md-list-item>
+            </md-list>
+          </md-sidenav>
 
-        <md-content flex id="content">
-          <md-icon md-svg-icon="{{ul.selected.avatar}}" class="avatar"></md-icon>
-          <h2>{{ul.selected.name}}</h2>
-          <p>{{ul.selected.content}}</p>
+          <md-content flex id="content">
+            <md-icon md-svg-icon="{{ul.selected.avatar}}" class="avatar"></md-icon>
+            <h2>{{ul.selected.name}}</h2>
+            <p>{{ul.selected.content}}</p>
 
-          <md-button class="share" md-no-ink ng-click="ul.makeContact(ul.selected)" aria-label="Share with {{ ul.selected.name }}">
-            <md-icon md-svg-icon="share"></md-icon>
-          </md-button>
-        </md-content>
+            <md-button class="share" md-no-ink ng-click="ul.makeContact(ul.selected)" aria-label="Share with {{ ul.selected.name }}">
+              <md-icon md-svg-icon="share"></md-icon>
+            </md-button>
+          </md-content>
 
+      </div>
     </div>
-
     <script src="../node_modules/angular/angular.js"></script>
     <script src="../node_modules/angular-animate/angular-animate.js"></script>
     <script src="../node_modules/angular-aria/angular-aria.js"></script>
     <script type="text/javascript" src="../node_modules/angular-material/angular-material.js"></script>
+    <!-- Orange Datasync -->
+    <script type='text/javascript' src='https://datasync.orange.com/libjs/latest/webcom.js'></script>
 
+    <!-- MainController -->
+    <script src="./src/main/Main.js"></script>
+    <script src="./src/main/MainController.js"></script>
+
+    <!-- Users -->
     <script src="./src/users/Users.js"></script>
     <script src="./src/users/UserController.js"></script>
     <script src="./src/users/UserService.js"></script>
@@ -69,7 +76,7 @@
     <script type="text/javascript">
 
           angular
-              .module('starterApp', ['ngMaterial', 'users'])
+              .module('starterApp', ['ngMaterial', 'users', 'main'])
               .config(function($mdThemingProvider, $mdIconProvider){
 
                   $mdIconProvider
