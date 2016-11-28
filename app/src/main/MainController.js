@@ -2,7 +2,7 @@
 
   angular
        .module('main')
-       .controller('MainController',  ['$mdSidenav',
+       .controller('MainController',  ['$mdSidenav', '$location',
           MainController
        ]);
 
@@ -10,24 +10,31 @@
    * Main Controller for the Angular Material Starter App
    * @constructor
    */
-  function MainController($mdSidenav) {
+  function MainController($mdSidenav, $location) {
     var self = this;
     // Datasync
     self.fds = new Webcom('https://io.datasync.orange.com/base/hackathon/users');
     self.menus = [
       {
         "name": "Manage users",
-        "action": "",
+        "route": "/users",
       },
       {
         "name": "Manage areas",
-        "action": "",
+        "route": "",
       },
       {
         "name": "Live map",
-        "action": "",
+        "route": "/map",
       },
     ];
+
+    self.selectMenu = function(menu)
+    {
+      self.selected = angular.isNumber(menu) ? self.menus[menu] : menu;
+      $location.path(menu.route);
+    };
+
     self.toggleMenu = function() {
       $mdSidenav('left').toggle();
     };
