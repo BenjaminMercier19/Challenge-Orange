@@ -56,7 +56,7 @@
       </div>
     </div>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="/scripts/angular/angular.js"></script>
     <script src="/scripts/angular-animate/angular-animate.js"></script>
     <script src="/scripts/angular-aria/angular-aria.js"></script>
@@ -69,6 +69,8 @@
     <!-- MainController -->
     <script src="./src/main/Main.js"></script>
     <script src="./src/main/MainController.js"></script>
+    <script src="./src/map/Map.js"></script>
+    <script src="./src/map/MapController.js"></script>
 
     <!-- Users -->
     <script src="./src/users/Users.js"></script>
@@ -78,7 +80,7 @@
     <script type="text/javascript">
 
           angular
-              .module('starterApp', ['ngMaterial', 'ngRoute', 'users', 'main'])
+              .module('starterApp', ['ngMaterial', 'ngRoute', 'users', 'main', 'map'])
               .config(function($mdThemingProvider, $mdIconProvider, $routeProvider){
 
                   $mdIconProvider
