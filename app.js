@@ -46,7 +46,9 @@ app.get('/write', (req, res) => {
  * Create user
  */
 app.post("/user", function(req, res) {
-  console.log("creating user");
+  process.stdout.write("creating user");
+  process.stdout.write(req.body.id);
+
   usersDatasync.child(req.body.id).set(req.body);
   res.status(200).send({"success":true});
 });
@@ -55,6 +57,9 @@ app.post("/user", function(req, res) {
  * Update user location
  */
 app.post("/user/:id", function(req,res) {
+  process.stdout.write("updating user");
+  process.stdout.write(req.params.id);
+
   var user = usersDatasync.child(req.params.id);
   user.update({
     "lat": req.body.lat,
