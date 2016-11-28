@@ -22,6 +22,7 @@ const app = express();
 
 var myRef = new Webcom('https://io.datasync.orange.com/base/hackathon');
 
+app.use('/scripts', express.static('node_modules'));
 app.use(express.static('app'));
 
 app.get('/', (req, res) => {
