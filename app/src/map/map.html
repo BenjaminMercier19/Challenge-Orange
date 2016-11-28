@@ -1,3 +1,32 @@
-<div ng-controller="MapController as map" style="width:100%;height:100%">
+<div class="map_section" ng-controller="MapController as map" style="width:100%;height:100%">
   <div id="map_canvas" style="width:100%;height:100%" ng-init="map.initMap()"></div>
+  <md-card ng-if="map.currentSelectedArea" class="data_card" md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">{{ map.currentSelectedArea.metadata.name }}</span>
+        <span class="md-subhead">Max agents : {{ map.currentSelectedArea.metadata.numMaxPeople }}</span>
+        <span class="md-subhead" ng-if="map.currentSelectedArea.metadata.containedUsers">Nb. agents courants : {{ map.currentSelectedArea.metadata.containedUsers }}</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content layout-align="space-between">
+      <div class="md-media-lg card-media">
+        <md-input-container>
+          <label>Sécurité</label>
+          <md-select ng-model="map.currentSelectedArea.metadata.security_level" ng-change="map.changedSecurityLevel()">
+            <md-option ng-repeat="level in map.securityLevels" ng-value="level.value">
+              {{level.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </md-card-content>
+  </md-card>
+  <md-card ng-if="map.currentSelectedUser" class="data_card" md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">{{ map.currentSelectedUser.metadata.firstName + " " + map.currentSelectedUser.metadata.name }}</span>
+        <span class="md-subhead">Poste : {{ map.usersLevels[map.currentSelectedUser.metadata.statusJActivity] }}</span>
+      </md-card-title-text>
+    </md-card-title>
+  </md-card>
 </div>

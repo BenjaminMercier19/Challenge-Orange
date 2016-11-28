@@ -3,20 +3,33 @@
   angular
        .module('map')
        .controller('MapController',  [
-          MapController
+          '$scope', MapController
        ]);
 
   /**
    * Main Controller for the Angular Material Starter App
    * @constructor
    */
-  function MapController() {
+  function MapController($scope) {
     var self = this;
     // Datasync
     self.usersDatasync = new Webcom('https://io.datasync.orange.com/base/hackathon/users');
     self.areaDatasync =  new Webcom('https://io.datasync.orange.com/base/hackathon/areas');
     self.users = [];
     self.areas = [];
+    
+    self.securityLevels = [
+      {value: 1, name: "Quarantaine"},
+      {value: 2, name: "Habilité"},
+      {value: 3, name: "Ouvert"},
+    ];
+    self.usersLevels = {
+      "worker_level1": "Ouvrier",
+      "manager_level1": "Chef de BU"
+    };
+    
+    self.currentSelectedArea = undefined;
+    self.currentSelectedUser = undefined;
 
     /**
      * Set up Datasync info to watch child added event
@@ -30,6 +43,9 @@
         map: self.map,
         metadata: user
       });
+      
+      marker.addListener("click", clickedUser);
+      
       self.users.push(marker);
     });
 
@@ -49,6 +65,26 @@
       };
       self.calculateUserPerArea();
     });
+    
+    function clickedArea() {
+      console.log(this);
+      var area = this;
+      
+      $scope.$apply(function () {
+        self.currentSelectedUser = undefined;
+        self.currentSelectedArea = area;
+      });
+    }
+    
+    function clickedUser() {
+      console.log(this);
+      var user = this;
+      
+      $scope.$apply(function () {
+        self.currentSelectedArea = undefined;
+        self.currentSelectedUser = user;
+      });
+    }
 
     self.calculateUserPerArea = function()
     {
@@ -58,8 +94,10 @@
         area.metadata.containedUsers = 0;
         for(var u = 0; u < self.users.length; u++)
         {
-          user.metadata.currentArea = null;
           var user = self.users[u];
+          
+          user.metadata.currentArea = null;
+          
           if(google.maps.geometry.poly.containsLocation(user.getPosition(), area))
           {
             area.metadata.containedUsers ++;
@@ -77,9 +115,8 @@
     self.areaDatasync.on("child_added", function(snapArea){
       var area = snapArea.val();
 
-      console.log(area);
-
       var polygonCoors = [];
+      // transform GeoJson coordinates to Polygon coordinates
       for (var i in area.geometry.coordinates[0]) {
         if (area.geometry.coordinates[0].hasOwnProperty(i)) {
           var coor = area.geometry.coordinates[0][i];
@@ -91,22 +128,41 @@
         paths: polygonCoors,
         metadata: area
       });
-
+      
+      polygon.metadata = area.metadata;
+      
+      polygon.addListener('click', clickedArea)
+      
       polygon.setMap(self.map);
       self.areas.push(polygon);
       self.calculateUserPerArea();
     });
+    
+    self.changedSecurityLevel = function () {
+      self.areaDatasync.child('' + self.currentSelectedArea.metadata.id + '/metadata').update(self.currentSelectedArea.metadata);
+    };
 
     self.initMap = function(){
       self.map = new google.maps.Map(document.getElementById('map_canvas'), {
-        center: new google.maps.LatLng(48.8008313,2.2950299),
-        zoom: 19
+        center: new google.maps.LatLng(48.80016797520192, 2.2942496091127396),
+        zoom: 17,
+        mapTypeControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_TOP
+        }
       });
 
       var imageBounds = new google.maps.LatLngBounds(
         new google.maps.LatLng(48.799784232891696, 2.2937208072014528), // bottom left corner
         new google.maps.LatLng(48.80129773796974, 2.2960765902823823)  // top right corner
       );
+      
+      self.map.addListener('click', function () {
+        $scope.$apply(function () {
+          // clears the current selected area and user
+          self.currentSelectedArea = undefined;
+          self.currentSelectedUser = undefined;
+        });
+      });
 
       historicalOverlay = new google.maps.GroundOverlay('/assets/images/imgaPlanViergeRotate.png', imageBounds, {clickable: false});
       historicalOverlay.setMap(self.map);

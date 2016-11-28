@@ -44,10 +44,15 @@ md-list-item > button {
   overflow: hidden;
 }
 
-#content  {
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 5px;
+.map_section {
+  padding: 0px;
+}
+
+.data_card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 300px;
 }
 
 #content .md-button.share {
