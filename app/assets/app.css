@@ -53,6 +53,11 @@ md-list-item > button {
   top: 0;
   left: 0;
   min-width: 300px;
+  opacity: 0.8;
+}
+
+.data_card:hover {
+  opacity: 1;
 }
 
 #content .md-button.share {
