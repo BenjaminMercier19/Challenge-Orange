@@ -25,16 +25,15 @@
 
   <body ng-app="starterApp" layout="column" ng-controller="MainController as main" ng-cloak>
     <md-toolbar layout="row">
-      <md-button class="menu" hide-gt-sm ng-click="main.toggleMenu()" aria-label="Show Menu List">
+      <md-button class="menu" ng-click="main.toggleMenu()" aria-label="Show Menu List">
         <md-icon md-svg-icon="menu" ></md-icon>
       </md-button>
       <h1>The Factory Assistant App</h1>
     </md-toolbar>
-    <div layout="column" ng-controller="UserController as ul">
 
       <div flex layout="row">
 
-          <md-sidenav  ng-click="main.toggleMenu()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2" >
+          <md-sidenav  ng-click="main.toggleMenu()" md-component-id="left" class="md-whiteframe-z2" >
             <md-list>
               <md-list-item ng-repeat="it in main.menus">
                   <md-button ng-click="main.selectMenu(it)" ng-class="{'selected' : it === main.selected }">
@@ -54,7 +53,6 @@
           </md-content>
 
       </div>
-    </div>
 
     <script async defer src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="/scripts/angular/angular.js"></script>
