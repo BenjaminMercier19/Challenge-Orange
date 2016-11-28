@@ -2,6 +2,7 @@
 	"type": "Feature",
 	"properties": {},
 	"metadata": {
+    "id":0,
 		"name": "Zone Machine 2",
 		"security_level": 3,
 		"lat": 0.0,
@@ -62,9 +63,11 @@
 		]
 	}
 }, {
+
 	"type": "Feature",
 	"properties": {},
 	"metadata": {
+    "id":1,
 		"name": "Zone dépot 1",
 		"security_level": 1,
 		"lat": 0.0,
@@ -128,6 +131,7 @@
 	"type": "Feature",
 	"properties": {},
 	"metadata": {
+    "id": 2,
 		"name": "Zone transport 1",
 		"security_level": 1,
 		"lat": 0.0,
@@ -167,6 +171,7 @@
 	"type": "Feature",
 	"properties": {},
 	"metadata": {
+    "id":3,
 		"name": "Zone transport 3",
 		"security_level": 3,
 		"lat": 0.0,
@@ -250,6 +255,7 @@
 	"type": "Feature",
 	"properties": {},
 	"metadata": {
+    "id":4,
 		"name": "Zone transport 1",
 		"security_level": 2,
 		"lat": 0.0,

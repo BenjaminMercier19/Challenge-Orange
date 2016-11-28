@@ -25,12 +25,12 @@
     self.usersDatasync.on('child_added', function(snapUser){
       console.log("user",  snapUser.val());
       var user = snapUser.val();
-      user.marker = new google.maps.Marker({
+      var marker = new google.maps.Marker({
         position: new google.maps.LatLng(user.lat, user.lng),
         map: self.map,
-        title: 'Hello World!'
+        metadata: user
       });
-      self.users.push(user);
+      self.users.push(marker);
     });
 
     /**
@@ -42,12 +42,33 @@
       var user = snapUser.val();
       for(var i = 0; i < self.users.length; i++)
       {
-        if(self.users[i].id == user.id)
+        if(self.users[i].metadata.id == user.id)
         {
-          self.users[i].marker.setPosition(new google.maps.LatLng(user.lat, user.lng));
+          self.users[i].setPosition(new google.maps.LatLng(user.lat, user.lng));
         }
       };
+      self.calculateUserPerArea();
     });
+
+    self.calculateUserPerArea = function()
+    {
+      for(var a = 0; a < self.areas.length; a++)
+      {
+        var area = self.areas[a];
+        area.metadata.containedUsers = 0;
+        for(var u = 0; u < self.users.length; u++)
+        {
+          user.metadata.currentArea = null;
+          var user = self.users[u];
+          if(google.maps.geometry.poly.containsLocation(user.getPosition(), area))
+          {
+            area.metadata.containedUsers ++;
+            user.metadata.currentArea = area.metadata.id;
+          }
+          console.log(area);
+        }
+      }
+    }
 
     /**
      * Get areas
@@ -55,23 +76,25 @@
      */
     self.areaDatasync.on("child_added", function(snapArea){
       var area = snapArea.val();
-      
+
       console.log(area);
-      
+
       var polygonCoors = [];
       for (var i in area.geometry.coordinates[0]) {
         if (area.geometry.coordinates[0].hasOwnProperty(i)) {
           var coor = area.geometry.coordinates[0][i];
-          console.log(coor);
           polygonCoors.push({lat: coor[1], lng: coor[0]});
         }
       }
-      
+
       var polygon = new google.maps.Polygon({
-        paths: polygonCoors
+        paths: polygonCoors,
+        metadata: area
       });
-      
+
       polygon.setMap(self.map);
+      self.areas.push(polygon);
+      self.calculateUserPerArea();
     });
 
     self.initMap = function(){
