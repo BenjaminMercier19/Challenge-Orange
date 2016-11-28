@@ -1,0 +1,63 @@
+[{
+  "id":1,
+  "firstName" : "Snow",
+  "name" : "John",
+  "lat" : 48.8003711,
+  "lng" : 2.2949510,
+  "statusJActivity" : "manager_level2",
+  "security_level" : 3
+},
+{
+  "id":2,
+  "firstName" : "Verdun",
+  "name" : "Frank",
+  "lat" : 48.800424,
+  "lng" : 2.2952192,
+  "statusJActivity" : "worker_level1",
+  "security_level" : 1
+},
+{
+  "id":3,
+  "firstName" : "Paul",
+  "name" : "Benoit",
+  "lat" : 48.8005813,
+  "lng" : 2.295396,
+  "statusJActivity" : "worker_level2",
+  "security_level" : 3
+},
+{
+  "id":4,
+  "firstName" : "Tulin",
+  "name" : "Nicolas",
+  "lat" : 48.8005813,
+  "lng" : 2.29452453,
+  "statusJActivity" : "worker_level1",
+  "security_level" : 3
+},
+{
+  "id":5,
+  "firstName" : "Granaux",
+  "name" : "Francine",
+  "lat" : 48.8005372,
+  "lng" : 2.2944189,
+  "statusJActivity" : "manager_level1",
+  "security_level" : 1
+},
+{
+  "id":6,
+  "firstName" : "Maupri",
+  "name" : "Stephanie",
+  "lat" :48.80065294,
+  "lng" : 2.29443099,
+  "statusJActivity" : "worker_level1",
+  "security_level" : 2
+},
+{
+  "id":7,
+  "firstName" : "Perini",
+  "name" : "Sylvie",
+  "lat" : 48.80068385,
+  "lng" : 2.2948333248,
+  "statusJActivity" : "worker_level4",
+  "security_level" : 3
+}]
