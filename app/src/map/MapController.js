@@ -37,7 +37,7 @@
      * Sync data changed for users location !
      *
      */
-    self.areaDatasync.on("child_changed", function(snapUser){
+    self.usersDatasync.on("child_changed", function(snapUser){
       console.log("child_changed");
       var user = snapUser.val();
       for(var i = 0; i < self.users.length; i++)
@@ -53,9 +53,25 @@
      * Get areas
      *
      */
-    self.usersDatasync.on("child_added", function(snapArea){
+    self.areaDatasync.on("child_added", function(snapArea){
       var area = snapArea.val();
- 
+      
+      console.log(area);
+      
+      var polygonCoors = [];
+      for (var i in area.geometry.coordinates[0]) {
+        if (area.geometry.coordinates[0].hasOwnProperty(i)) {
+          var coor = area.geometry.coordinates[0][i];
+          console.log(coor);
+          polygonCoors.push({lat: coor[1], lng: coor[0]});
+        }
+      }
+      
+      var polygon = new google.maps.Polygon({
+        paths: polygonCoors
+      });
+      
+      polygon.setMap(self.map);
     });
 
     self.initMap = function(){
