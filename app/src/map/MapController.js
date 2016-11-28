@@ -100,7 +100,7 @@
     self.initMap = function(){
       self.map = new google.maps.Map(document.getElementById('map_canvas'), {
         center: new google.maps.LatLng(48.8008313,2.2950299),
-        zoom: 4
+        zoom: 19
       });
 
       var imageBounds = new google.maps.LatLngBounds(
