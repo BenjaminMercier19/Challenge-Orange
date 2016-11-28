@@ -1,0 +1,469 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="OnStartup" id="j^t9kACw9mPUI(iq8SJ7" x="-888" y="-63">
+    <statement name="DO">
+      <block type="createmenu" id="T5v0F9aH^6W!P]/2Nn!u">
+        <field name="IS_CREATE">1</field>
+        <comment pinned="false" h="80" w="160">1 items  0 menus
+
+"Reload" (1)
+        </comment>
+        <statement name="DO">
+          <block type="item" id="m1)cOZU8j1g~h:~]Qfd5">
+            <value name="ITEM_NAME">
+              <shadow type="text" id="L#,B(7eFtWr/UCB}d*P8">
+                <field name="TEXT">Reload</field>
+              </shadow>
+            </value>
+            <statement name="DO">
+              <block type="menu_handler" id="ys;hetKbx4uRTLrFwmT;">
+                <value name="HANDLER_NAME">
+                  <shadow type="text" id="t7.l`^Soq(~vjKAEIP%:">
+                    <field name="TEXT">message</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="led" id="YOXsBkZ*}(`os;E_8RX]">
+                    <field name="COLOR">YELLOW</field>
+                    <field name="FREQ">SLOW</field>
+                    <next>
+                      <block type="vibrate" id="9Og_(T;sOJBpho%fOp?5">
+                        <value name="FREQ">
+                          <shadow type="math_number" id="i^f4G-eJuTKSx7tgRW%A">
+                            <field name="NUM">200</field>
+                          </shadow>
+                        </value>
+                        <value name="DUR">
+                          <shadow type="math_number" id="rYrAmAU!zE8PgpX)5=7p">
+                            <field name="NUM">500</field>
+                          </shadow>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="OnNetTriLoc" id="MaT)GxuTZASHSh.l.au*" x="737" y="37">
+    <statement name="DO">
+      <block type="SendMessage" id="0D^O1Lg/A0t[{O7`byPk">
+        <value name="DISP_MESS">
+          <shadow type="text" id="B_ymoMmFXY7BC.DHN=5c">
+            <field name="TEXT">message</field>
+          </shadow>
+          <block type="text_join" id="o+T0ii[lLrz}batMY{w4">
+            <mutation items="5"></mutation>
+            <value name="ADD0">
+              <block type="text" id="kQj)X@Ems#|0S(fIgV}r">
+                <field name="TEXT">#189</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="text" id="=V2xy?[i?MRvbqH?L;ru">
+                <field name="TEXT"> </field>
+              </block>
+            </value>
+            <value name="ADD2">
+              <block type="loc_var" id="hYc0%X2W/a%bXQA/RwE,">
+                <field name="VAR_LOC">lat</field>
+              </block>
+            </value>
+            <value name="ADD3">
+              <block type="text" id="dQ%[qt;kr#*xT,R?+:rk">
+                <field name="TEXT"> </field>
+              </block>
+            </value>
+            <value name="ADD4">
+              <block type="loc_var" id="bs?JM9R-zi#7X.IZRB@z">
+                <field name="VAR_LOC">long</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="Post" id="o;Jv09jc}lY{@+?{qfy)">
+            <value name="JSON">
+              <block type="text_join" id="4OP/S6eRW4S(s?AJ{vRj">
+                <mutation items="7"></mutation>
+                <value name="ADD0">
+                  <block type="text" id=":J5b`sHSp)(roq4lOkj*">
+                    <field name="TEXT">#186</field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="text" id="PvZMhBNW@pmfK/4g8~@4">
+                    <field name="TEXT"> </field>
+                  </block>
+                </value>
+                <value name="ADD2">
+                  <block type="loc_var" id="rW0FAuSHY*iW),T1GT1i">
+                    <field name="VAR_LOC">lat</field>
+                  </block>
+                </value>
+                <value name="ADD3">
+                  <block type="text" id="7zjVUm*@,GUagw-647y;">
+                    <field name="TEXT"> </field>
+                  </block>
+                </value>
+                <value name="ADD4">
+                  <block type="loc_var" id="4bwXRyH_Gn4;!.squT^;">
+                    <field name="VAR_LOC">long</field>
+                  </block>
+                </value>
+                <value name="ADD5">
+                  <block type="Beacondata" id="b+]c#dn~x4+mgG}?[OQ=">
+                    <field name="BEACON_DATA">beaconrssi</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="URL">
+              <shadow type="text" id="!TgOlcs`/?Pioezs93gH">
+                <field name="TEXT">http://</field>
+              </shadow>
+            </value>
+            <next>
+              <block type="led" id="RxOd#Zn*F,hvqtc5SPCm">
+                <field name="COLOR">OFF</field>
+                <field name="FREQ">FIX</field>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="OnmshEvent" id="~k*pa{J?K[zlm.Gl)UUF" x="-888" y="263">
+    <statement name="DO">
+      <block type="led" id="ItY]q4NxNjplCx0kBJ3-">
+        <field name="COLOR">OFF</field>
+        <field name="FREQ">FIX</field>
+        <next>
+          <block type="createmenu" id="zAM_mw?E4jr#yR[[;v:B">
+            <field name="IS_CREATE">1</field>
+            <comment pinned="false" h="80" w="160">3 items  0 menus
+
+"TLBS" (1)
+"beacon" (2)
+"Reload" (3)
+            </comment>
+            <statement name="DO">
+              <block type="item" id="^~5F/`h1-hIQ`ZuJ%L)O">
+                <value name="ITEM_NAME">
+                  <shadow type="text" id="MB+x#,Ll{l,ghAw[p0Cj">
+                    <field name="TEXT">TLBS</field>
+                  </shadow>
+                </value>
+                <statement name="DO">
+                  <block type="networklocalization_tri" id="Ar^,O6Oo%c=~R0jhxRwf">
+                    <next>
+                      <block type="led" id="8ybM*~SJPv~afig9AbG6">
+                        <field name="COLOR">GREEN</field>
+                        <field name="FREQ">SLOW</field>
+                        <next>
+                          <block type="vibrate" id="BnXdchj*M1uQB^eaj/eE">
+                            <value name="FREQ">
+                              <shadow type="math_number" id="3fcYeRvyfIGQ)OxkjvVO">
+                                <field name="NUM">200</field>
+                              </shadow>
+                            </value>
+                            <value name="DUR">
+                              <shadow type="math_number" id="~(~%p][n,^zJG?LO7DHV">
+                                <field name="NUM">500</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="item" id="Na%4q)u{g0mHwD^iMZ({">
+                    <value name="ITEM_NAME">
+                      <shadow type="text" id="#XA#9n;fs3119qVx#8xw">
+                        <field name="TEXT">beacon</field>
+                      </shadow>
+                    </value>
+                    <statement name="DO">
+                      <block type="vibrate" id="%[}5xMdVaP0#QajV)K#,">
+                        <value name="FREQ">
+                          <shadow type="math_number" id="*KFg.|3kERv*nzP#e1yw">
+                            <field name="NUM">200</field>
+                          </shadow>
+                        </value>
+                        <value name="DUR">
+                          <shadow type="math_number" id="/]SZiVAHowKB8KQK8VwR">
+                            <field name="NUM">500</field>
+                          </shadow>
+                        </value>
+                        <next>
+                          <block type="led" id="BlwF93(jHq@~(Zu6j#s9">
+                            <field name="COLOR">BLUE</field>
+                            <field name="FREQ">SLOW</field>
+                            <next>
+                              <block type="BeaconDetect" id="a7Jdn~a5r4Y;A8FX-8OQ">
+                                <field name="BEAC_START">1</field>
+                                <value name="BEAC_ID">
+                                  <shadow type="math_number" id="r#YC/OTs2y!X^Hl-GqW6">
+                                    <field name="NUM">1</field>
+                                  </shadow>
+                                </value>
+                                <value name="BEAC_TIME">
+                                  <shadow type="math_number" id="mj~lplp%mm4QdoV@X:%W">
+                                    <field name="NUM">0</field>
+                                  </shadow>
+                                </value>
+                                <value name="BEAC_MAC">
+                                  <shadow type="text" id="`(-#UF:,DY-qZ)^oTnsA">
+                                    <field name="TEXT"></field>
+                                  </shadow>
+                                </value>
+                                <value name="BEAC_UUID">
+                                  <shadow type="text" id="O0*GhVU0B.RNpJe*szK7">
+                                    <field name="TEXT"></field>
+                                  </shadow>
+                                </value>
+                                <value name="BEAC_MAJ">
+                                  <shadow type="math_number" id="+av*I~}`_N=quja,xE}_">
+                                    <field name="NUM">-1</field>
+                                  </shadow>
+                                </value>
+                                <value name="BEAC_MIN">
+                                  <shadow type="math_number" id="aR2DMA-(6Gz_UVKU!E@G">
+                                    <field name="NUM">-1</field>
+                                  </shadow>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="item" id="O4K@j[@n(K)vPt}aIAPX">
+                        <value name="ITEM_NAME">
+                          <shadow type="text" id="elyxiICO-=7{3Q3YwB9n">
+                            <field name="TEXT">Reload</field>
+                          </shadow>
+                        </value>
+                        <statement name="DO">
+                          <block type="menu_handler" id="U@LHd?50lzzAO:?f,+Q2">
+                            <value name="HANDLER_NAME">
+                              <shadow type="text" id="D{z3(^2My@MM^eZn+a`!">
+                                <field name="TEXT">message</field>
+                              </shadow>
+                            </value>
+                            <next>
+                              <block type="led" id="21{s;PNTdtF=k!D:H+tA">
+                                <field name="COLOR">YELLOW</field>
+                                <field name="FREQ">SLOW</field>
+                                <next>
+                                  <block type="vibrate" id="n.(el?O9*fkQ+j-0gn|{">
+                                    <value name="FREQ">
+                                      <shadow type="math_number" id="dj`M|VV~:5F7=8}4YGWi">
+                                        <field name="NUM">200</field>
+                                      </shadow>
+                                    </value>
+                                    <value name="DUR">
+                                      <shadow type="math_number" id="QxFy;!_UgCOl1Kc7L-*%">
+                                        <field name="NUM">500</field>
+                                      </shadow>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="onPost" id="G%NZi^]3`fx.#2r~92RI" x="788" y="488">
+    <statement name="DO">
+      <block type="controls_if" id="`k2I1=P:xDIui13MPIc~">
+        <value name="IF0">
+          <block type="logic_compare" id="e9+,5A-k+]M_Rh|sN+L{">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="body" id="BeDULN~~9_Nu[bo;7*uB">
+                <value name="KEY">
+                  <shadow type="text" id="qF+!5X%zI|t6-Pzs%V6^">
+                    <field name="TEXT">beacon</field>
+                  </shadow>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <block type="text" id="}CtOOU{%,vr}[]qPxyvK">
+                <field name="TEXT">on</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="BeaconDetect" id="#kR,dZz~gP/vrqQW.P/m">
+            <field name="BEAC_START">1</field>
+            <value name="BEAC_ID">
+              <shadow type="math_number" id="[3`f/a;]M(SPLBE7kcEU">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="BEAC_TIME">
+              <shadow type="math_number" id="HJ+/F%H#k4D.yp7x`Fyj">
+                <field name="NUM">0</field>
+              </shadow>
+            </value>
+            <value name="BEAC_MAC">
+              <shadow type="text" id="vh9lOW-M_3NVuW{aBvFY">
+                <field name="TEXT"></field>
+              </shadow>
+            </value>
+            <value name="BEAC_UUID">
+              <shadow type="text" id="?uaZU5_=kw@tsY0SE!9*">
+                <field name="TEXT"></field>
+              </shadow>
+            </value>
+            <value name="BEAC_MAJ">
+              <shadow type="math_number" id="Cg,:hwZ)kOS%vClxktW[">
+                <field name="NUM">-1</field>
+              </shadow>
+            </value>
+            <value name="BEAC_MIN">
+              <shadow type="math_number" id="QN+I6~G~Bv+Kt-3j#7.}">
+                <field name="NUM">-1</field>
+              </shadow>
+            </value>
+            <next>
+              <block type="led" id="~9+rH%x:4~y{vIBR98zQ">
+                <field name="COLOR">BLUE</field>
+                <field name="FREQ">SLOW</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="controls_if" id="Vv~PfcshknyoF;^Dv;xh">
+            <value name="IF0">
+              <block type="logic_compare" id="rTq6xX.L@3(t2JA.VRGx">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="body" id="@c@J`1j?AhqPa4^k;c9b">
+                    <value name="KEY">
+                      <shadow type="text" id="lT~Od?!^8NaYhGcmEB[D">
+                        <field name="TEXT">beacon</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="text" id="BujEBd2ya1^g(~MX@F)6">
+                    <field name="TEXT">off</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="BeaconDetect" id="55z:g6k{FW1kv1W2^8MY">
+                <field name="BEAC_START">0</field>
+                <value name="BEAC_ID">
+                  <shadow type="math_number" id="e5%x;IR.Pyq_yL*!mWDO">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <value name="BEAC_TIME">
+                  <shadow type="math_number" id="^mR7Q;6Qtvlf1=zwYfn1">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="BEAC_MAC">
+                  <shadow type="text" id="oO`oyP.!ye+rN?OzcoDp">
+                    <field name="TEXT"></field>
+                  </shadow>
+                </value>
+                <value name="BEAC_UUID">
+                  <shadow type="text" id="eGV%4,}*vGYw8/)eEghO">
+                    <field name="TEXT"></field>
+                  </shadow>
+                </value>
+                <value name="BEAC_MAJ">
+                  <shadow type="math_number" id="`6{b6=xW-(7W5~xGjoa!">
+                    <field name="NUM">-1</field>
+                  </shadow>
+                </value>
+                <value name="BEAC_MIN">
+                  <shadow type="math_number" id="_;]IOfX^p`Noam8@VuT*">
+                    <field name="NUM">-1</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="led" id="Nj@p7Y9,z.1Z#^=D`6:-">
+                    <field name="COLOR">OFF</field>
+                    <field name="FREQ">FIX</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="OnBeaconDetect" id="X2R/w7/KRxe|`AbBDnZE" x="-888" y="888">
+    <statement name="DO">
+      <block type="led" id="9yJoyKq(:`kD{ZRg?B6?">
+        <field name="COLOR">OFF</field>
+        <field name="FREQ">SLOW</field>
+        <next>
+          <block type="SendMessage" id="9PVxrON)G*`+6=7b3Hxx">
+            <value name="DISP_MESS">
+              <shadow type="text" id="D{(fd4esr.P1g;#rf*QQ">
+                <field name="TEXT">retour beacon</field>
+              </shadow>
+              <block type="text_join" id="+9PXAQsjmd7%B!d]y0Ky">
+                <mutation items="5"></mutation>
+                <value name="ADD0">
+                  <block type="Beacondata" id="tE_Svb82UY]Em:e0x%PW">
+                    <field name="BEACON_DATA">beaconmajor</field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="text" id="FIPShbDoKxtIuH~ENsb{">
+                    <field name="TEXT"> </field>
+                  </block>
+                </value>
+                <value name="ADD2">
+                  <block type="Beacondata" id="guZ:6/|-y`wfll%t_8r~">
+                    <field name="BEACON_DATA">beaconminor</field>
+                  </block>
+                </value>
+                <value name="ADD3">
+                  <block type="text" id="4!sufY}GD!^}mZPz)|A*">
+                    <field name="TEXT"> </field>
+                  </block>
+                </value>
+                <value name="ADD4">
+                  <block type="Beacondata" id="Rt1RV2O7hp0Yi}E5J/k8">
+                    <field name="BEACON_DATA">beaconrssi</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
