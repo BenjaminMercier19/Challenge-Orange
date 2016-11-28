@@ -1,141 +1,163 @@
-# Angular Material-Start (ES6)
+# Angular Material-Start
 
-This branch contains the final/complete version (i.e. `step-10-finished`) of the
-[Material Start ES6 Tutorial](https://github.com/angular/material-start/tree/es6-tutorial) branch
-in this repository.
+This Material **start** project is a *seed* for AngularJS Material applications. The project contains a sample AngularJS application and is pre-configured to install the Angular framework and a bunch of development and testing tools for instant web development gratification.
 
-There are many additional branches in this repository that you may find useful:
+This sample application is intended to be useful as both a learning tool and a skeleton application
+for a typical [AngularJS Material](http://material.angularjs.org/) web app: comprised of a Side navigation
+area and a content area. You can use it to quickly bootstrap your AngularJS webapp projects and dev
+environment for these projects.
 
- - [`master`](https://github.com/angular/material-start/tree/master) (this branch) - A copy of the
- `es6` branch outlined below with additional notes about the available branches.
- - [`es5-tutorial`](https://github.com/angular/material-start/tree/es5-tutorial) - Step-by-step
- instructions that clearly demonstrate how the Starter application can be created in minutes using
- ES5. 
- - [`es5`](https://github.com/angular/material-start/tree/es5) - The final ES5 version which you
- complete in the last step of the tutorials above.
- - [`es6-tutorial`](https://github.com/angular/material-start/tree/es6-tutorial) - Step-by-step
- instructions that clearly demonstrate how the Starter application can be created in minutes using
- ES6. 
- - [`es6`](https://github.com/angular/material-start/tree/es6) - The final ES6 version which you
- complete in the last step of the tutorials above.
- - [`typescript`](https://github.com/angular/material-start/tree/typescript) - The final Starter
- Application built using Typescript.
- 
-> **Note:** We do not currently offer a `typescript-tutorial` branch as the steps are fairly similar
-  to the existing `es6-tutorial` branch.
+### What is the UX?
 
-#### Purpose
+Below is a snapshot of the Starter-App with the Users' *master-detail* view. Also shown is the user
+experience that will be displayed for smaller device sizes. The responsive layout changes to hide
+the user list, reveal the **menu** button. In the User Details view, you may also click the
+**share** button  to show the Contact &lt;User&gt; bottom sheet view.
 
-This project uses the latest master branch of Angular Material to build the application outlined
-below.
+<br/>
 
-![material-starter-ux2](https://cloud.githubusercontent.com/assets/6004537/14996543/b588eb46-1137-11e6-803c-ce23996c9742.png)
+![material-starter-ux2](https://cloud.githubusercontent.com/assets/210413/6448551/70864488-c0e0-11e4-8767-c4e1e4c2f343.png)
 
-Above is a snaphot of the Starter-App with a **Master-Detail** layout: showing a list of users
-(left) and a user detail view (right).
-
-Also shown is the user experience that will be displayed for smaller device sizes. The responsive
-layout reveals the **menu** button that can be used to hide the user list. And the **share** button
-can be used to show the Share bottom sheet view.
+<br/>
 
 This Starter app demonstrates how:
 
 *  Angular Material `layout` and `flex` options can easily configure HTML containers
-*  Angular Material components `<md-toolbar>`, `<md-sidenav>`, and `<md-icon>` can quickly provide
-   a base application structure
-*  Custom controllers can be used and show `<md-bottomsheet>` with HTML templates
-*  Custom controller can easily, and programmatically open/close the SideNav component
+*  Angular Material components `<md-toolbar>`, `<md-sidenav>`, `<md-icon>` can be quickly used
+*  Custom controllers can use and show `<md-bottomsheet>` with HTML templates
+*  Custom controller can easily, programmatically open & close the SideNav component.
 *  Responsive breakpoints and `$mdMedia` are used
 *  Theming can be altered/configured using `$mdThemingProvider`
+*  ARIA features are supported by Angular Material and warnings can be used to improve accessibility.
+
+### ES5 & ES5 Tutorials
+
+This repository contains two ES5 branches:
+
+ - `es5-tutorials` - Step-by-step instructions that clearly demonstrate how the Starter application
+ can be created in minutes.
+ - `es5` (this branch) - The final ES5 version which you complete in the last step of the tutorials
+ above.
+
+![Wireframe](https://cloud.githubusercontent.com/assets/210413/6444676/c247c8f8-c0c4-11e4-8206-208f55cbceee.png)
+
+> These ES5 tutorials were presented live, on-stage at **ng-conf 2015, Utah**.
+
+## Getting Started
+
+#### Prerequisites
+
+You will need **git** to clone the material-start repository. You can get git from
+[http://git-scm.com/][git].
+
+We also use a number of node.js tools to initialize and test material-start. You must have node.js
+and its package manager (npm) installed. You can get them from
+[http://nodejs.org/][node].
+
+#### Clone Material-Start
+
+To get you started, first, clone the [Material-Start](https://github.com/angular/material-start)
+repository using [git][git]:
+
+    git clone https://github.com/angular/material-start
+    cd material-start
+    
+Next, checkout the `es5` or `es5-tutorial` branches.
+
+    git checkout es5
+    
+> **Note:** The `master` branch contains the es6 version of this project.
+
+#### Install Dependencies
+
+We have two kinds of dependencies in this project: tools and AngularJS framework code.  The tools
+help us manage and test the application.
+
+* We get the tools we depend upon via `npm`, the [node package manager][npm].
+* We also get the AngularJS and Angular Material library code via `npm`
+
+```
+npm install
+```
+
+You should find that you have one new folder in your project:
+
+ - `node_modules` - contains the npm packages for the tools we need
 
 
-This sample application is purposed as both a learning tool and a skeleton application for a typical
-[AngularJS Material](http://angularjs.org/) web app, comprised of a side navigation area and a
-content area. You can use it to quickly bootstrap your angular webapp projects and dev environment
-for these projects.
+## Directory Layout
 
-- - -
+```
+app/                    --> all of the source files for the application
+  assets/app.css        --> default stylesheet
+  src/                  --> all app specific modules
+     users/             --> package for user features
+  index.html            --> app layout file (the main html template file of the app)
+```
 
-#### "How to build an App"
 
-Here are some generalized steps that may be used to conceptualize the application implementation
-process:
+## Serving the Application Files
 
-1. Plan your layout and the components you want to use
+While AngularJS is client-side-only technology and it is possible to create AngularJS web apps that
+don't require a backend server at all, we recommend serving the project files using a local web
+server during development to avoid issues with security restrictions (sandbox) in browsers. The
+sandbox implementation varies between browsers, but quite often prevents things like cookies, xhr,
+etc to function properly when an html page is opened via the `file://` scheme instead of `http://`.
 
-2. Use hard-coded HTML and mock content to make sure the components appear as desired
+### Running the App during Development
 
-3. Wire components to your application logic
+The angular-material project comes pre-configured with a local development web server. It is a
+node.js tool called [live-server][live-server].
 
-   > Use the seamless integration possible with Angular directives and controllers.<br/>
-   > This integration assumes that you have unit tested your application logic.
+You can run the following command to start the server:
 
-4. Add Responsive breakpoints
+```
+ node ./node_modules/live-server/live-server.js . --open=app
+```
 
-5. Add Theming support
+This should open your browser to [http://localhost:8080/app/](http://localhost:8080/app/) so you
+can view the Material-Start app.
 
-6. Confirm ARIA compliance
+You can install also live-server globally to make life easier and for use with other applications:
 
-7. Write End-to-end (e2e) Tests
+```
+npm install -g live-server
+```
 
-   > It is important to validate your application logic with Angular Material UI components.
+Then you can start your own development web server to serve static files from a folder by running:
 
-###### Wirefame
+```
+cd my-project
+live-server .
+```
 
-The illustration below shows how we planned the layout and identified the primary components that
-will be used in the Starter app:
+Finally, you can choose to configure your a different webserver, such as apache or nginx. Just
+configure your server to serve the files under the `app/` directory.
 
-<br/>
-![plancomponents2](https://cloud.githubusercontent.com/assets/210413/6444676/c247c8f8-c0c4-11e4-8206-208f55cbceee.png)
+## Updating Angular
 
-> **Note:** The container #2 (above) is a simple `<div>` container and not an Angular Material
-  component.
+Previously we recommended that you merge in changes to angular-seed into your own fork of the
+project. Now that the AngularJS framework library code and tools are acquired through package managers
+(npm) you can use these tools instead to update the dependencies.
 
-- - -
+You can update the tool dependencies by running:
 
-##### Getting Started
+```
+npm update
+```
 
-This project uses [jspm.io](http://jspm.io), a package manager for SystemJS which is built on top
-of the dynamic ES6 module loader. This allows developers to load any module format (ES6, CommonJS,
-AMD, and globals).
+This will find the latest versions that match the version ranges specified in the `package.json` file.
 
-###### Prerequisites
 
-This project assumes that you have NodeJS and any relevant development tools (like XCode) already
-installed.
- 
-###### Getting Started
+## Contact
 
-Clone this repository and execute the following commands in a terminal:
+For more information on AngularJS please check out http://angularjs.org/
 
-* `git checkout master`
-* `npm install`
-* `npm run serve`
+For more information on Angular Material, check out https://material.angularjs.org/
 
-> **Note:** Open the dev console to see any warnings and browse the elements.
-
-###### Layout
-
-You will notice a few files/directories within this project:
-
- 1. `app/src` - This is where all of your application files are stored.
- 2. `app/assets` - This folder contains some tutorial-provided images and icons which are used by
-    the application.
- 3. `index.html` - The entry point to your application. This uses System.js to load the
-    `app/src/boot/boot.js` bootstrap file which in turn loads the `app/src/app.js` file that imports
-     all of your dependencies and declares them as Angular modules, and configures the icons and
-     theming for the application.
-
-#### Troubleshooting
-
-If you have issues getting the application to run or work as expected:
-
-1. Make sure you have installed JSPM and run the `jspm update` command.
-2. Reach out on our [Forum](https://groups.google.com/forum/#!forum/ngmaterial) to see if any other
-   developers have had the same issue.
-3. This project is based against the `master` branch of Angular Material, so it is always showing
-   the latest and greatest. You may want to update the `package.json` to use Version 1.1.0 or
-   another stable release to make sure it isn't because of something we changed recently.
-4. Search for the issue here on [GitHub](https://github.com/angular/material-start/issues?q=is%3Aissue+is%3Aopen).
-5. If you don't see an existing issue, please open a new one with the relevant information and the
-   details of the problem you are facing.
+[git]: http://git-scm.com/
+[bower]: http://bower.io
+[npm]: https://www.npmjs.org/
+[node]: http://nodejs.org
+[travis]: https://travis-ci.org/
+[live-server]: https://www.npmjs.com/package/live-server
