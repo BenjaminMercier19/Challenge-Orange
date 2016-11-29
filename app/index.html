@@ -105,7 +105,18 @@
                           redirectTo: '/map',
                         });
 
+              })
+              .filter('since', function () {
+                return function (enteredAt) {
+                    var sinceInS = ((new Date().getTime() - enteredAt)/1000).toFixed(2);
+                    if(sinceInS < 60)
+                      return sinceInS + "s";
+                    else if(sinceInS < 3600)
+                      return (sinceInS - sinceInS%60)/60  + "min " +   (sinceInS%60).toFixed(2) +"s";
+                };
               });
+
+
 
     </script>
 

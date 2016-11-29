@@ -26,6 +26,10 @@
       <md-card-title-text>
         <span class="md-headline">{{ map.currentSelectedUser.metadata.firstName + " " + map.currentSelectedUser.metadata.name }}</span>
         <span class="md-subhead">Poste : {{ map.usersLevels[map.currentSelectedUser.metadata.statusJActivity] }}</span>
+        <div ng-if="map.currentSelectedUser.metadata.currentArea" layout="column">
+          <span class="md-subhead">Zone actuel : {{ map.currentSelectedUser.metadata.currentArea.area.name }}</span>
+          <span class="md-subhead">Dans la zone depuis : {{ map.currentSelectedUser.metadata.currentArea.enteredAt | since }}</span>
+        </div>
       </md-card-title-text>
     </md-card-title>
   </md-card>
