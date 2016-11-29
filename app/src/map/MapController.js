@@ -125,6 +125,32 @@
       }
     }
 
+    self.areaDatasync.on("child_changed", function(snapArea){
+
+          var area = snapArea.val();
+
+          for(var i = 0; i < self.areas.length; i++)
+          {
+            if(self.areas[i].metadata.id == area.metadata.id)
+            {
+              console.log(area.metadata.security_level)
+              switch (area.metadata.security_level) {
+                case 1:
+                  polygonColor = "#e2574a";
+                  break;
+                case 2:
+                  polygonColor = "#1d92d6";
+                  break;
+                case 3:
+                  polygonColor = "#24c942";
+                  break;
+                default:
+
+              }
+              self.areas[i].setOptions({fillColor : polygonColor});
+            }
+          };
+        }); 
     /**
      * Get areas
      *
@@ -140,11 +166,28 @@
           polygonCoors.push({lat: coor[1], lng: coor[0]});
         }
       }
+      var polygonColor = "#7f8896";
+     switch (area.metadata.security_level) {
+       case 1:
+         polygonColor = "#e2574a";
+         break;
+       case 2:
+         polygonColor = "#1d92d6";
+         break;
+       case 3:
+         polygonColor = "#24c942";
+         break;
+       default:
 
-      var polygon = new google.maps.Polygon({
-        paths: polygonCoors,
-        metadata: area
-      });
+     }
+
+     var polygon = new google.maps.Polygon({
+       paths: polygonCoors,
+       fillColor: polygonColor,
+       fillOpacity: 0.8,
+       metadata: area
+     });
+
 
       polygon.metadata = area.metadata;
 
