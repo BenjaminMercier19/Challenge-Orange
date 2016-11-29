@@ -273,7 +273,7 @@
       }, function errorCallback(response) {
         console.log(response);
       });*/
-      $http.post('http://odc.kermit.orange-labs.fr/post/866224023460388', {'securityArea':'on'}).then(function(response){return response;});
+      $http.post('http://odc.kermit.orange-labs.fr/post/866224023460388', {'securityArea':'on','message':'Attention , evacuation de la zone.'}).then(function(response){return response;});
 
     }
 
