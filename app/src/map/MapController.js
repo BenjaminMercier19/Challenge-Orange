@@ -3,14 +3,14 @@
   angular
        .module('map')
        .controller('MapController',  [
-          '$scope', MapController
+          '$scope', '$http', MapController
        ]);
 
   /**
    * Main Controller for the Angular Material Starter App
    * @constructor
    */
-  function MapController($scope) {
+  function MapController($scope, $http) {
     var self = this;
     // Datasync
     self.usersDatasync = new Webcom('https://io.datasync.orange.com/base/hackathon/users');
@@ -62,11 +62,10 @@
           self.users[i].setPosition(new google.maps.LatLng(user.lat, user.lng));
         }
       };
-      //self.calculateUserPerArea();
+      self.calculateUserPerArea();
     });
 
     function clickedArea() {
-      console.log(this);
       var area = this;
 
       $scope.$apply(function () {
@@ -90,14 +89,11 @@
       for(var a = 0; a < self.areas.length; a++)
       {
         var area = self.areas[a];
-        console.log(a);
         area.metadata.containedUsers = 0;
-        whileLoop:
         for(var u = users.length - 1; u >=0 ; u--)
         {
           var user = users[u];
           user.metadata.currentArea = null;
-          console.log(user.metadata.name);
 
           if(google.maps.geometry.poly.containsLocation(user.getPosition(), area))
           {
@@ -107,30 +103,23 @@
               "enteredAt": new Date().getTime()
             }
             self.users[u] = user;
-            console.log("user inside", user.metadata.name);
 
             //Check if currentArea in synced data is same as here, then get time
             self.usersDatasync.child(user.metadata.id).on("value", function(snapUser){
               var storedUser = snapUser.val();
-              if(storedUser.metadata && storedUser.metadata.currentArea && storedUser.metadata.currentArea.area.id == user.metadata.currentArea.area.id) {
-                user.metadata = storedUser.metadata;
+              if(storedUser && storedUser.currentArea && storedUser.currentArea.area.id == user.metadata.currentArea.area.id) {
+                user.metadata = storedUser;
               }
               else {
                 if(user.metadata)
+                {
                   self.usersDatasync.child(user.metadata.id).set(user.metadata);
+                }
               }
               self.usersDatasync.child(user.metadata.id).off("value");
             })
-
-
-            //Else set a new currentArea in Datasync
-            //
-
-
             users.splice(u,1);
-            //u--;
-            //break whileLoop;
-            //Check if user is in Quarantaine zone
+
           }
         }
       }
@@ -198,6 +187,19 @@
       historicalOverlay = new google.maps.GroundOverlay('/assets/images/imgaPlanViergeRotate.png', imageBounds, {clickable: false});
       historicalOverlay.setMap(self.map);
     };
+
+    function warnUser()
+    {
+      $http({
+        method: 'GET',
+        url: 'http://10.0.0.51:8000/advert-user'
+      }).then(function successCallback(response) {
+        console.log("user has been warned")
+      }, function errorCallback(response) {
+        console.err(response);
+      });
+    }
+
   }
 
 })();
