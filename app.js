@@ -23,6 +23,7 @@ var bodyParser = require('body-parser');
 
 var hackathon = new Webcom('https://io.datasync.orange.com/base/hackathon');
 var usersDatasync = new Webcom('https://io.datasync.orange.com/base/hackathon/users');
+var areasDatasync = new Webcom('https://io.datasync.orange.com/base/hackathon/areas');
 
 
 app.use('/scripts', express.static('node_modules'));
@@ -68,6 +69,61 @@ app.post("/user/:id", function(req,res) {
   res.status(200).send({"success":true});
 
 });
+
+/**
+ * Get user info in zone
+ */
+app.post("/user/:id/:beaconID", function (req, res) {
+  var user = usersDatasync.child(req.params.id);
+  var areas = areasDatasync.on("value", function(snapArea){
+    var area = snapArea.val();
+    if(area.metadata.beaconID == req.params.beaconID)
+    {
+      //Get area security_level
+      if(area.metadata.security_level == 1)
+      {
+
+      }
+
+    }
+  })
+});
+
+function sendMessageToPops(message)
+{
+  // Build the post string from an object
+  var post_data = querystring.stringify({
+      'compilation_level' : 'ADVANCED_OPTIMIZATIONS',
+      'output_format': 'json',
+      'output_info': 'compiled_code',
+        'warning_level' : 'QUIET',
+        'js_code' : codestring
+  });
+
+  // An object of options to indicate where to post to
+  var post_options = {
+      host: 'closure-compiler.appspot.com',
+      port: '80',
+      path: '/compile',
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      }
+  };
+
+  // Set up the request
+  var post_req = http.request(post_options, function(res) {
+      res.setEncoding('utf8');
+      res.on('data', function (chunk) {
+          console.log('Response: ' + chunk);
+      });
+  });
+
+  // post the data
+  post_req.write(post_data);
+  post_req.end();
+
+}
 
 
 // Start the server

@@ -114,6 +114,7 @@
                 if(user.metadata)
                 {
                   self.usersDatasync.child(user.metadata.id).set(user.metadata);
+
                 }
               }
               self.usersDatasync.child(user.metadata.id).off("value");
@@ -127,30 +128,44 @@
 
     self.areaDatasync.on("child_changed", function(snapArea){
 
-          var area = snapArea.val();
+      var area = snapArea.val();
 
-          for(var i = 0; i < self.areas.length; i++)
+      for(var i = 0; i < self.areas.length; i++)
+      {
+        if(self.areas[i].metadata.id == area.metadata.id)
+        {
+          console.log(area.metadata.security_level)
+          switch (area.metadata.security_level) {
+            case 1:
+              polygonColor = "#e2574a";
+              break;
+            case 2:
+              polygonColor = "#1d92d6";
+              break;
+            case 3:
+              polygonColor = "#24c942";
+              break;
+            default:
+
+          }
+          self.areas[i].setOptions({fillColor : polygonColor});
+          break;
+        }
+      };
+
+      //Check users in the zone
+      if(area.metadata.security_level == 1)
+      {
+        for(var i = 0; i < self.users.length; i++)
+        {
+          if(self.users[i].metadata.currentArea && self.users[i].metadata.currentArea.area.id == area.metadata.id)
           {
-            if(self.areas[i].metadata.id == area.metadata.id)
-            {
-              console.log(area.metadata.security_level)
-              switch (area.metadata.security_level) {
-                case 1:
-                  polygonColor = "#e2574a";
-                  break;
-                case 2:
-                  polygonColor = "#1d92d6";
-                  break;
-                case 3:
-                  polygonColor = "#24c942";
-                  break;
-                default:
-
-              }
-              self.areas[i].setOptions({fillColor : polygonColor});
-            }
-          };
-        }); 
+            console.log("Warning user");
+            warnUser();
+          }
+        }
+      }
+    });
     /**
      * Get areas
      *
@@ -233,13 +248,23 @@
 
     function warnUser()
     {
-      $http({
+      /*$http({
         method: 'GET',
         url: 'http://10.0.0.51:8000/advert-user'
       }).then(function successCallback(response) {
         console.log("user has been warned")
       }, function errorCallback(response) {
-        console.err(response);
+        console.log(response);
+      });*/
+
+      $http({
+        method: 'POST',
+        url: 'http://odc.kermit.orange-labs.fr/post/866224023460388',
+        data: "{'securityArea':'on'}"
+      }).then(function successCallback(response) {
+        console.log("user has been warned")
+      }, function errorCallback(response) {
+        console.log(response);
       });
     }
 
