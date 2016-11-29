@@ -54,6 +54,9 @@
     self.usersDatasync.on("child_changed", function(snapUser){
       console.log("child_changed");
       var user = snapUser.val();
+      if(user.illegalArea == 1){
+        showAlert("Attention l'utilisateur "+ user.name +" est entré dans une zone non autorisé.");
+      }
       for(var i = 0; i < self.users.length; i++)
       {
         if(self.users[i].metadata.id == user.id)
@@ -277,8 +280,7 @@
 
     }
 
-    function showAlert(areaName){
-      var message = "Trop de personnes dans la zone: " + areaName + ", ceux-ci ont été averti";
+    function showAlert(message){
       $mdDialog.show(
         $mdDialog.alert()
           .clickOutsideToClose(true)
