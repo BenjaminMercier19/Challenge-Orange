@@ -77,8 +77,7 @@ app.post("/user/:id", function(req,res) {
 
   var user = usersDatasync.child(req.params.id);
   user.update({
-    "lat": req.body.lat,
-    "lng": req.body.lng
+    "illegalArea": req.body.illegalArea
   });
   res.status(200).send({"success":true});
 
