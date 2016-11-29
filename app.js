@@ -38,9 +38,23 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname +'/app/index.html');
 });
 
-app.get('/write', (req, res) => {
-    myRef.set({foo: 'bar'});
-    res.status(200).send('Hello, world!');
+app.get('/walk/:id', (req, res) => {
+    //makeUserWalk(req);
+    var user = usersDatasync.child(req.params.id);
+    var walk = [[48.801080, 2.295728],[48.801036, 2.295432], [48.800981, 2.295234],[48.800963, 2.295127],[48.800811, 2.295270],[48.800489, 2.295298]];
+    for(var i = 0; i < walk.length; i++)
+    {
+      (function(w)
+      {
+        setTimeout(function(){
+          user.update({
+            "lat": walk[w][0],
+            "lng": walk[w][1]
+          });
+        }, w*1000);
+      })(i)
+    }
+    res.status(200).send({"success":true});
 });
 
 /**
@@ -73,7 +87,7 @@ app.post("/user/:id", function(req,res) {
 /**
  * Get user info in zone
  */
-app.post("/user/:id/:beaconID", function (req, res) {
+/*app.post("/user/:id/:beaconID", function (req, res) {
   var user = usersDatasync.child(req.params.id);
   var areas = areasDatasync.on("value", function(snapArea){
     var area = snapArea.val();
@@ -87,13 +101,13 @@ app.post("/user/:id/:beaconID", function (req, res) {
 
     }
   })
-});
+});*/
 
-function sendMessageToPops(message)
+
+/*function sendMessageToPops(message)
 {
   // Build the post string from an object
   var post_data = querystring.stringify({
-      'compilation_level' : 'ADVANCED_OPTIMIZATIONS',
       'output_format': 'json',
       'output_info': 'compiled_code',
         'warning_level' : 'QUIET',
@@ -123,7 +137,7 @@ function sendMessageToPops(message)
   post_req.write(post_data);
   post_req.end();
 
-}
+}*/
 
 
 // Start the server

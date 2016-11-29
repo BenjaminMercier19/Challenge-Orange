@@ -3,14 +3,14 @@
   angular
        .module('map')
        .controller('MapController',  [
-          '$scope', '$http', MapController
+          '$scope', '$http', '$mdDialog', MapController
        ]);
 
   /**
    * Main Controller for the Angular Material Starter App
    * @constructor
    */
-  function MapController($scope, $http) {
+  function MapController($scope, $http, $mdDialog) {
     var self = this;
     // Datasync
     self.usersDatasync = new Webcom('https://io.datasync.orange.com/base/hackathon/users');
@@ -23,6 +23,7 @@
       {value: 2, name: "Habilité"},
       {value: 3, name: "Ouvert"},
     ];
+
     self.usersLevels = {
       "worker_level1": "Ouvrier",
       "manager_level1": "Chef de BU"
@@ -42,9 +43,7 @@
         map: self.map,
         metadata: user
       });
-
       marker.addListener("click", clickedUser);
-
       self.users.push(marker);
     });
 
@@ -60,10 +59,24 @@
         if(self.users[i].metadata.id == user.id)
         {
           self.users[i].setPosition(new google.maps.LatLng(user.lat, user.lng));
+          self.calculateUserPerArea();
+          checkIfUsersAreaOvercrowded(self.users[i]);
         }
       };
-      self.calculateUserPerArea();
+
     });
+
+    function checkIfUsersAreaOvercrowded(user)
+    {
+      if(user.metadata.currentArea)
+      {
+        var area = user.metadata.currentArea.area;
+        if(area.metadata.containedUsers > area.metadata.numMaxPeople)
+        {
+          showAlert(area.metadata.name);
+        }
+      }
+    }
 
     function clickedArea() {
       var area = this;
@@ -123,6 +136,10 @@
 
           }
         }
+        /*if(area.metadata.containedUsers > area.metadata.numMaxPeople)
+        {
+          showAlert(area.metadata.name);
+        }*/
       }
     }
 
@@ -182,7 +199,7 @@
         }
       }
       var polygonColor = "#7f8896";
-     switch (area.metadata.security_level) {
+      switch (area.metadata.security_level) {
        case 1:
          polygonColor = "#e2574a";
          break;
@@ -248,7 +265,7 @@
 
     function warnUser()
     {
-      /*$http({
+      /*  $http({
         method: 'GET',
         url: 'http://10.0.0.51:8000/advert-user'
       }).then(function successCallback(response) {
@@ -256,17 +273,21 @@
       }, function errorCallback(response) {
         console.log(response);
       });*/
+      $http.post('http://odc.kermit.orange-labs.fr/post/866224023460388', {'securityArea':'on'}).then(function(response){return response;});
 
-      $http({
-        method: 'POST',
-        url: 'http://odc.kermit.orange-labs.fr/post/866224023460388',
-        data: "{'securityArea':'on'}"
-      }).then(function successCallback(response) {
-        console.log("user has been warned")
-      }, function errorCallback(response) {
-        console.log(response);
-      });
     }
+
+    function showAlert(areaName){
+      var message = "Trop de personnes dans la zone: " + areaName + ", ceux-ci ont été averti";
+      $mdDialog.show(
+        $mdDialog.alert()
+          .clickOutsideToClose(true)
+          .title('Danger')
+          .textContent(message)
+          .ariaLabel('Alert Dialog Demo')
+          .ok('ok!')
+      );
+    };
 
   }
 
